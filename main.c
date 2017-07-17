@@ -6,7 +6,7 @@
 
 int		ls_sort_insert(t_list *prev, t_list *new)
 {
-	if (ft_strcmp(((struct dirent)prev->content)->d_name, cur->d_name))
+	if (ft_strcmp(((struct dirent*)prev->content)->d_name, ((struct dirent*)new->content)->d_name))
 		return (1);
 	return (0);
 }
@@ -16,6 +16,7 @@ int		main(int ac, char **av)
 	void			*dir;
 	struct	dirent	*data;
 	t_list			*start;
+	t_list			*tmp;
 
 	start = NULL;
 	if (ac != 2)
@@ -25,8 +26,14 @@ int		main(int ac, char **av)
 		return(printf("Fichier ou dossier inexistant\n"));
 	while ((data = readdir(dir)))
 	{
-		ft_lstinsert_if_end(&start, ft_lstnew(data, sizeof(struct dirent)), 
+		ft_lstinsert_if_end(&start, ft_lstnew(data, sizeof(struct dirent)), &ls_sort_insert);
 	}
 	closedir(dir);
+	tmp = start;
+	while (tmp)
+	{
+		printf("%s\n", ((struct dirent*)(tmp->content))->d_name);
+		tmp = tmp->next;
+	}
 	return (0);
 }
