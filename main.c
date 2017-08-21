@@ -1,8 +1,29 @@
-#include <stdio.h>
-#include <sys/types.h>
-#include <dirent.h>
-#include <string.h>
-#include "libft/libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/21 16:05:11 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/08/21 17:54:26 by czalewsk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_ls.h"
+
+void		check_option(char (*option)[128])
+{
+	int		i;
+
+	i = 0;
+	while (i < 128)
+	{
+		if ((*option)[i])
+			ft_printf("option %c is set\n", i);
+		i++;
+	}
+}
 
 int		ls_sort_insert(t_list *prev, t_list *new)
 {
@@ -17,11 +38,15 @@ int		main(int ac, char **av)
 	struct	dirent	*data;
 	t_list			*start;
 	t_list			*tmp;
+	char			option[128];
+	int				i;
 
+	i = 0;
+	ft_bzero(option, sizeof(option));
 	start = NULL;
-	if (ac != 2)
-		return (0);
-	dir = opendir(av[1]);
+	i = get_param(ac, av, &option);
+	check_option(&option);
+	dir = opendir(i == ac ? "." : av[i]);
 	if (!dir)
 		return(printf("Fichier ou dossier inexistant\n"));
 	while ((data = readdir(dir)))
