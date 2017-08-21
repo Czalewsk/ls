@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:11 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/21 20:03:55 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/08/21 20:26:08 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		illegal_option(char (*option)[128], char *name)
 	{
 		if ((*option)[i] && !ft_strchr(options, (char)i))
 		{
-			ft_printf("%s: illegal option -- %c\n", name, i);
+			ft_printf("%s: illegal option -- %c\n", name + 2, i);
 			return (0);
 		}
 		i++;
