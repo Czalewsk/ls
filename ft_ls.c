@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 20:08:53 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 12:06:32 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/08/22 12:51:26 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void		ls_del_dir(void *content, size_t size)
 {
 	(void)size;
+	if (((t_ls_info*)content)->dir)
+		closedir(((t_ls_info*)content)->dir);
 	ft_memdel(&content);
 }
 
@@ -72,43 +74,5 @@ void		ft_ls(int ac, char **av, int i, char (*option)[128])
 	start = sort_entry(ac, av, i);
 	open_each_dir(&start);
 	tmp = start;
-	while (tmp)
-	{
-		ft_printf("%s\n", ((t_ls_info*)tmp->content)->name);
-		closedir(((t_ls_info*)tmp->content)->dir);
-		tmp = tmp->next;
-	}
 	ft_lstdel(&start, &ls_del_dir);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-	{
-		dir = opendir(i == ac ? "." : av[i]);
-		if (!dir)
-			printf("ls: %s: No such file or directory\n");
-		while ((data = readdir(dir)))
-			ft_lstinsert_if_end(&start,
-					ft_lstnew(data, sizeof(struct dirent)), &ls_sort_insert);
-		closedir(dir);
-		tmp = start;
-		while (tmp)
-		{
-			printf("%s\n", ((struct dirent*)(tmp->content))->d_name);
-			tmp = tmp->next;
-		}
-		i++;
-	}
-*/
