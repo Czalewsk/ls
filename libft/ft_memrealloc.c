@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   ft_memrealloc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2016/11/30 16:41:28 by czalewsk          #+#    #+#             */
+/*   Updated: 2016/12/01 16:47:08 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+void		*ft_memrealloc(void *addr, size_t old_size, size_t new_size)
 {
-	int		i;
-	int		result;
+	void	*newaddr;
 
-	result = 0;
-	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
-	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
-	}
-	return (i);
+	if (new_size < old_size)
+		return (addr);
+	newaddr = ft_memalloc(new_size);
+	if (!(addr))
+		return (newaddr);
+	ft_memmove(newaddr, addr, old_size);
+	free(addr);
+	return (newaddr);
 }

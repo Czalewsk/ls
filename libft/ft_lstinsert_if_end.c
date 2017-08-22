@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   ft_lstinsert_if_end.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2017/02/20 08:54:34 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/02/20 09:20:58 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "./libft.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+void	ft_lstinsert_if_end(t_list **alst, t_list *new, int (*f)(t_list *,
+			t_list *))
 {
-	int		i;
-	int		result;
+	t_list		*curs;
+	t_list		**prev;
 
-	result = 0;
-	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
+	if (!alst || !new || !f)
+		return ;
+	prev = &(*alst);
+	curs = *prev;
+	while (curs && f(curs, new))
 	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
+		curs = (*prev)->next;
+		prev = &(*prev)->next;
 	}
-	return (i);
+	new->next = curs;
+	*prev = new;
 }

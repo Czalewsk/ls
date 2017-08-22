@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2016/11/20 14:52:40 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/01/14 14:14:21 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#ifndef __GET_NEXT_LINE_H
+# define __GET_NEXT_LINE_H
 
-int		get_param(int ac, char **av, char (*option)[128])
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <unistd.h>
+# include "./libft.h"
+# include <stdio.h>
+
+# define BUFF_SIZE 500
+# define CT(Pointeur) ((t_str*)(Pointeur->content))
+
+typedef	struct		s_str
 {
-	int		i;
-	int		result;
+	int			fd;
+	char		*buff;
+	int			size;
+}					t_str;
 
-	result = 0;
-	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
-	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
-	}
-	return (i);
-}
+int					get_next_line(const int fd, char **line);
+#endif

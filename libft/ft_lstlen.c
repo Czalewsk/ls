@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   ft_lstlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: czalewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2016/11/13 14:33:29 by czalewsk          #+#    #+#             */
+/*   Updated: 2016/11/13 14:59:07 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+size_t		ft_lstlen(t_list *lst)
 {
-	int		i;
-	int		result;
+	t_list	*current;
+	size_t	i;
 
-	result = 0;
-	i = 0;
-	if (!option)
+	i = 1;
+	if (!lst)
 		return (0);
-	while (++i < ac)
+	current = lst;
+	while (current->next)
 	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
+		i++;
+		current = current->next;
 	}
 	return (i);
 }

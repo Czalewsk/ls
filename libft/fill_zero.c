@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   fill_zero.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2017/01/11 19:03:45 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/01/11 19:06:16 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_printf.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+char		*fill_zero(int n)
 {
-	int		i;
-	int		result;
+	char		*str;
+	int			i;
 
-	result = 0;
+	if (n <= 0)
+		return (ft_strnew(0));
 	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
-	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
-	}
-	return (i);
+	str = ft_strnew(n);
+	while (i < n)
+		str[i++] = '0';
+	return (str);
 }

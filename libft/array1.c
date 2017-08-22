@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   array1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2017/02/09 15:03:25 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/03/23 22:48:48 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "array.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+void		ft_array_iter(t_array *array, void (*f)(void *))
 {
-	int		i;
-	int		result;
+	size_t		i;
 
-	result = 0;
 	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
-	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
-	}
-	return (i);
+	if (!array || !f)
+		return ;
+	while (i < array->size)
+		f(array->content + i++);
 }

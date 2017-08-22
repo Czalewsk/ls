@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   conv_n.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2017/01/13 09:19:41 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/01/13 09:41:09 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_printf.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+void		conv_n(t_flags *meta, va_list *ap)
 {
-	int		i;
-	int		result;
+	int *i;
 
-	result = 0;
-	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
-	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
-	}
-	return (i);
+	(void)meta;
+	i = (int*)va_arg(*ap, int*);
+	*i = fill_buffer_str(NULL);
 }

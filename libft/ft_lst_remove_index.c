@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   ft_lst_remove_index.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2017/02/10 05:41:12 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/02/13 10:57:54 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+void	ft_lst_remove_index(t_list **alst, int index,
+		void (*del)(void *, size_t))
 {
-	int		i;
-	int		result;
+	t_list		*cur;
+	t_list		**prev;
+	int			i;
 
-	result = 0;
 	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
+	if (!alst || index < 0)
+		return ;
+	prev = &(*alst);
+	cur = *prev;
+	while (cur->next && i < index)
 	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
+		cur = (*prev)->next;
+		prev = &(*prev)->next;
+		i++;
 	}
-	return (i);
+	*prev = cur->next;
+	cur->next = NULL;
+	if (del)
+		del(cur->content, cur->content_size);
+	free(cur);
+	cur = *prev;
 }

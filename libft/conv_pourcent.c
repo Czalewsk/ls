@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   conv_pourcent.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2017/01/11 16:44:43 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/01/13 08:40:52 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_printf.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+void		conv_pourcent(t_flags *meta, va_list *ap)
 {
 	int		i;
-	int		result;
 
-	result = 0;
-	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
-	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
-	}
-	return (i);
+	(void)ap;
+	i = 1;
+	if (meta->mtag == 1)
+		fill_buffer_char('%');
+	if (meta->mini_w - 1 > 0 && meta->ztag == 1 && meta->mtag != 1)
+		while (i++ < meta->mini_w)
+			fill_buffer_char('0');
+	if (meta->mini_w - 1 > 0)
+		while (i++ < meta->mini_w)
+			fill_buffer_char(' ');
+	if (meta->mtag != 1)
+		fill_buffer_char('%');
 }

@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   ft_strlen_utf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2017/01/11 13:33:39 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/01/11 13:34:46 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+size_t		ft_strlen_utf(const int *str)
 {
 	int		i;
-	int		result;
+	int		len;
 
-	result = 0;
+	len = 0;
 	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
+	while (str[i])
 	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
+		if (str[i] < 0)
+			return (0);
+		else if (str[i] < 0x80)
+			len++;
+		else if (str[i] < 0x800)
+			len += 2;
+		else if (str[i] < 0x10000)
+			len += 3;
+		else if (str[i] < 0x10FFFF)
+			len += 4;
+		i++;
 	}
-	return (i);
+	return (len);
 }

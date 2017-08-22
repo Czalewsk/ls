@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/08/22 12:57:10 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#ifndef __FT_LS_H
+# define __FT_LS_H
 
-int		get_param(int ac, char **av, char (*option)[128])
+# include <stdio.h>
+# include <sys/types.h>
+# include <dirent.h>
+# include <string.h>
+# include "libft/libft.h"
+
+int				get_param(int ac, char **av, char (*option)[128]);
+void			ft_ls(int ac, char **av, int i, char (*option)[128]);
+
+typedef struct	s_ls_info
 {
-	int		i;
-	int		result;
+	char	*name;
+	void	*dir;
+}				t_ls_info;
 
-	result = 0;
-	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
-	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
-	}
-	return (i);
-}
+#endif

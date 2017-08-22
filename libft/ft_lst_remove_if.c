@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   ft_lst_remove_if.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2016/11/27 12:36:57 by czalewsk          #+#    #+#             */
+/*   Updated: 2016/11/30 10:42:32 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+void		ft_lst_remove_if(t_list **alst, int (*f)(t_list *elem),
+		void (*del)(void *, size_t))
 {
-	int		i;
-	int		result;
+	t_list		*cur;
+	t_list		**prev;
 
-	result = 0;
-	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
+	prev = &(*alst);
+	cur = *prev;
+	while (cur)
 	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
+		if (f(cur) == 1)
+		{
+			*prev = cur->next;
+			cur->next = NULL;
+			del ? del(cur->content, cur->content_size) : NULL;
+			free(cur);
+			cur = *prev;
+		}
+		else
+		{
+			cur = (*prev)->next;
+			prev = &(*prev)->next;
+		}
 	}
-	return (i);
 }

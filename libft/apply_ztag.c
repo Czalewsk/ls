@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   apply_ztag.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2017/01/13 04:19:08 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/01/13 08:10:10 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_printf.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+void		apply_ztag(char **str)
 {
 	int		i;
-	int		result;
 
-	result = 0;
 	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
+	if (**str != ' ')
+		return ;
+	while ((*str)[i] && (*str)[i] == ' ')
+		(*str)[i++] = '0';
+	if ((*str)[i] == '-' || (*str)[i] == '+')
 	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
+		(*str)[0] = (*str)[i];
+		(*str)[i] = '0';
 	}
-	return (i);
+	if ((*str)[i] == '0' && ((*str)[i + 1] == 'x' || (*str)[i + 1] == 'X'))
+	{
+		(*str)[1] = (*str)[i + 1];
+		(*str)[i + 1] = '0';
+	}
 }

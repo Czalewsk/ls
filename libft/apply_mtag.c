@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   apply_mtag.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2017/01/13 04:04:04 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/01/13 04:07:00 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_printf.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+void		apply_mtag(char **str, int len)
 {
 	int		i;
-	int		result;
 
-	result = 0;
 	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
-	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
-	}
-	return (i);
+	while ((*str)[i] && (*str)[i] == ' ')
+		i++;
+	if (len == i)
+		return ;
+	ft_memmove(*str, (*str) + i, len - i);
+	i = len - i;
+	while (i < len)
+		(*str)[i++] = ' ';
 }

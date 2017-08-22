@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   conv_invalid.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2017/01/13 05:23:31 by czalewsk          #+#    #+#             */
+/*   Updated: 2017/01/13 06:52:04 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_printf.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+void			conv_invalid(const char *format, t_flags *meta, int *i)
 {
-	int		i;
-	int		result;
-
-	result = 0;
-	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
-	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
-	}
-	return (i);
+	if (meta->mtag == 1)
+		fill_buffer_char(format[(*i)]);
+	while (meta->ztag != 1 && --meta->mini_w > 0)
+		fill_buffer_char(' ');
+	while (meta->ztag == 1 && --meta->mini_w > 0)
+		fill_buffer_char('0');
+	if (meta->mtag != 1 && meta->conv != 0)
+		fill_buffer_char(format[(*i)]);
+	else if (meta->mtag != 1)
+		(*i)--;
 }

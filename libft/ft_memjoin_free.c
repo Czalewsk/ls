@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_param.c                                        :+:      :+:    :+:   */
+/*   ft_memjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:01:51 by czalewsk         ###   ########.fr       */
+/*   Created: 2016/11/30 19:01:23 by czalewsk          #+#    #+#             */
+/*   Updated: 2016/11/30 19:10:33 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-int		get_param(int ac, char **av, char (*option)[128])
+void	*ft_memjoin_free(void *addr1, size_t size1, void *addr2, size_t size2)
 {
-	int		i;
-	int		result;
+	void	*new;
+	size_t	i;
+	size_t	j;
 
-	result = 0;
 	i = 0;
-	if (!option)
-		return (0);
-	while (++i < ac)
+	j = 0;
+	if (size1 + size2 == 0)
+		return (NULL);
+	new = ft_memalloc(size1 + size2);
+	while (i < size1)
 	{
-		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))
-			break ;
-		while (*++(av[i]))
-			(*option)[(int)(*av[i])] = 1;
+		((UC*)new)[i] = ((UC*)addr1)[i];
+		i++;
 	}
-	return (i);
+	while (j < size2)
+	{
+		((UC*)new)[i + j] = ((UC*)addr2)[j];
+		j++;
+	}
+	free(addr1);
+	return (new);
 }
