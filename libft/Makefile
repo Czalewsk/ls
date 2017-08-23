@@ -6,7 +6,7 @@
 #    By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 13:16:18 by czalewsk          #+#    #+#              #
-#    Updated: 2017/05/05 16:18:22 by lduval           ###   ########.fr        #
+#    Updated: 2017/08/22 13:07:29 by czalewsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,6 +134,7 @@ OBJ = ft_strlen.o			\
 	  ft_atoi_bigendian.o	\
 	  ft_intisbetween_inc.o \
 	  ft_cfextension.o		\
+	  get_param.o
 
 
 all : $(NAME)

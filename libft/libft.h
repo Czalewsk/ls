@@ -6,7 +6,7 @@
 /*   By: czalewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 14:37:53 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/05/23 14:00:26 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/08/22 13:06:43 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ long int		ft_atol(const char *str);
 t_list			*ft_lst_return_index(t_list *lst, size_t index);
 int				ft_isprint_wsp(int c);
 char			*ft_cfextension(char *filename, char *extension);
+int				get_param(int ac, char **av, char (*option)[128]);
 
 #endif

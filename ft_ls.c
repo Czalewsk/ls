@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 20:08:53 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 12:51:26 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/08/23 20:05:18 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@ void		ls_del_dir(void *content, size_t size)
 	ft_memdel(&content);
 }
 
-int			sort_entry_byname(t_list *prev, t_list *new)
-{
-	return (ft_strcmp(((t_ls_info*)prev->content)->name,
-				((t_ls_info*)new->content)->name) < 0 ? 1 : 0);
-}
-
 t_list		*sort_entry(int ac, char **av, int i)
 {
 	t_list		*start;
@@ -34,9 +28,10 @@ t_list		*sort_entry(int ac, char **av, int i)
 	start = NULL;
 	while (i < ac)
 	{
+		new.dir = NULL;
 		new.name = av[i];
 		ft_lstinsert_if_end(&start,
-				ft_lstnew(&new, sizeof(t_ls_info)), &sort_entry_byname);
+				ft_lstnew(&new, sizeof(t_ls_info)), &ls_sort_name);
 		i++;
 	}
 	return (start);
@@ -54,12 +49,12 @@ void		open_each_dir(t_list **start)
 	{
 		next = tmp->next;
 		elmt = tmp->content;
-		if (!(dir = opendir(elmt->name)))
+		if (lstat(elmt->name, &elmt->stat))
 		{
 			ft_printf("ls: %s: No such file or directory\n", (elmt->name));
 			ft_lst_remove(start, tmp, &ls_del_dir);
 		}
-		else
+		else if ((dir = opendir(elmt->name)))
 			elmt->dir = dir;
 		tmp = next;
 	}
@@ -67,12 +62,12 @@ void		open_each_dir(t_list **start)
 
 void		ft_ls(int ac, char **av, int i, char (*option)[128])
 {
-	t_list			*start;
-	t_list			*tmp;
+	t_ls_list	start;
 
-	(void)option;
-	start = sort_entry(ac, av, i);
-	open_each_dir(&start);
-	tmp = start;
-	ft_lstdel(&start, &ls_del_dir);
+	start.error = NULL;
+	start.files = NULL;
+	start.folders = NULL;
+	start.print = 0;
+	ls_init_list(&start, ac, av, i, option);
+	ls_wrapper(option, &start);
 }

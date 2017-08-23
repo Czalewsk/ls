@@ -6,13 +6,13 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:11 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 12:52:08 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/08/23 20:40:17 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-const	char	g_options[] = "lRart";
+const	char	g_options[] = "lRart1";
 
 void	print_usage(void)
 {
