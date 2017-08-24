@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 14:20:18 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/23 19:57:49 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/08/24 09:17:00 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static int			sort_time_modified_r(t_list *prev, t_list *cur)
 {
-	return (((t_ls_info*)(prev->content))->stat.st_atime <
-			((t_ls_info*)(cur->content))->stat.st_atime ? 0 : 1);
+	return (((t_ls_info*)(prev->content))->stat.st_mtime >
+			((t_ls_info*)(cur->content))->stat.st_mtime ? 0 : 1);
 }
 
 static int			sort_time_modified(t_list *prev, t_list *cur)
 {
-	return (((t_ls_info*)(prev->content))->stat.st_atime >
-			((t_ls_info*)(cur->content))->stat.st_atime ? 0 : 1);
+	return (((t_ls_info*)(prev->content))->stat.st_mtime <
+			((t_ls_info*)(cur->content))->stat.st_mtime ? 0 : 1);
 }
 
 static int			sort_name_r(t_list *prev, t_list *new)
