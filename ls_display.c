@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 11:04:14 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/23 20:37:51 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/08/24 10:29:43 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ls_display_ext(t_ls_info *files, char dot_files)
 	(void)dot_files;
 }
 
-void	*ls_set_display(char (*option)[128])
+void		*ls_set_display(char (*option)[128])
 {
 	void	(*f)(t_ls_info*, char);
 
@@ -43,7 +43,7 @@ void	*ls_set_display(char (*option)[128])
 	return (f);
 }
 
-void	ls_display_files(t_ls_list *start, char (*option)[128])
+void		ls_display_files(t_ls_list *start, char (*option)[128])
 {
 	t_list		*prev;
 	t_list		*cur;
@@ -53,8 +53,7 @@ void	ls_display_files(t_ls_list *start, char (*option)[128])
 	if (!f)
 	{
 		f = ls_set_display(option);
-		if ((*option)['a'])
-			dot_files = 1;
+		dot_files = ((*option)['a']) ? 1 : 0;
 	}
 	cur = start->files;
 	while (cur)

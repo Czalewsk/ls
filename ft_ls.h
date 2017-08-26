@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/23 20:01:53 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/08/26 16:12:38 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ typedef struct	s_ls_list
 
 typedef struct	s_ls_info
 {
-	char		*name;
-	void		*dir;
-	struct stat	stat;
+	char			*name;
+	DIR				*dir;
+	struct stat		stat;
+	struct dirent	*data;
 }				t_ls_info;
 
 int				get_param(int ac, char **av, char (*option)[128]);
@@ -47,5 +48,6 @@ void			ls_init_list(t_ls_list *start, int ac, char **av, int i,
 int				ls_sort_name(t_list *prev, t_list *new);
 void			ls_display_files(t_ls_list *start, char (*option)[128]);
 void			ls_display_error(t_ls_list *start);
+void			ls_display_folders(char (*option)[128], t_ls_list *start);
 
 #endif

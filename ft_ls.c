@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 20:08:53 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/23 20:05:18 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/08/24 11:58:15 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,13 @@
 
 void		ls_del_dir(void *content, size_t size)
 {
+	t_ls_info	*tmp;
+
 	(void)size;
-	if (((t_ls_info*)content)->dir)
-		closedir(((t_ls_info*)content)->dir);
+	tmp = content;
+	if (tmp->dir)
+		closedir(tmp->dir);
 	ft_memdel(&content);
-}
-
-t_list		*sort_entry(int ac, char **av, int i)
-{
-	t_list		*start;
-	t_ls_info	new;
-
-	start = NULL;
-	while (i < ac)
-	{
-		new.dir = NULL;
-		new.name = av[i];
-		ft_lstinsert_if_end(&start,
-				ft_lstnew(&new, sizeof(t_ls_info)), &ls_sort_name);
-		i++;
-	}
-	return (start);
-}
-
-void		open_each_dir(t_list **start)
-{
-	t_list		*tmp;
-	void		*dir;
-	t_ls_info	*elmt;
-	t_list		*next;
-
-	tmp = *start;
-	while (tmp)
-	{
-		next = tmp->next;
-		elmt = tmp->content;
-		if (lstat(elmt->name, &elmt->stat))
-		{
-			ft_printf("ls: %s: No such file or directory\n", (elmt->name));
-			ft_lst_remove(start, tmp, &ls_del_dir);
-		}
-		else if ((dir = opendir(elmt->name)))
-			elmt->dir = dir;
-		tmp = next;
-	}
 }
 
 void		ft_ls(int ac, char **av, int i, char (*option)[128])
