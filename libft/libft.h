@@ -6,7 +6,7 @@
 /*   By: czalewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 14:37:53 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:06:43 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/08/26 18:02:03 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,6 @@ t_list			*ft_lst_return_index(t_list *lst, size_t index);
 int				ft_isprint_wsp(int c);
 char			*ft_cfextension(char *filename, char *extension);
 int				get_param(int ac, char **av, char (*option)[128]);
+void			ft_lst_add_index(t_list **alst, t_list *new, int index);
 
 #endif
