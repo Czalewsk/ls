@@ -42,12 +42,14 @@ void	ls_init_list(t_ls_list *start, int ac, char **av, int i,
 	{
 		new.dir = opendir(".");
 		new.name = ".";
+        new.path = ft_strdup("./");
 		lstat(new.name, &new.stat);
 		ft_lstadd(&start->folders, ft_lstnew(&new, sizeof(t_ls_info)));
 	}
 	while (i < ac)
 	{
 		new.name = av[i];
+        new.path = ft_strjoin(new.name, "/");
 		if (lstat(new.name, &new.stat))
 		{
 			ft_lstinsert_if_end(&start->error,

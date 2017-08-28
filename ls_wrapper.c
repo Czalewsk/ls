@@ -16,6 +16,7 @@ void		ls_wrapper(char (*option)[128], t_ls_list *start)
 {
 	ls_display_error(start);
 	ls_display_files(start, option);
+	ft_printf("------------\n");
 	ls_display_folders(option, start);
 	return ;
 }

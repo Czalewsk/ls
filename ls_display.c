@@ -56,6 +56,8 @@ void		ls_display_files(t_ls_list *start, char (*option)[128])
 		dot_files = ((*option)['a']);
 	}
 	cur = start->files;
+	if (cur)
+	    start->print = 1;
 	while (cur)
 	{
 		f(cur->content, dot_files);
