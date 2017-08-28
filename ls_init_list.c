@@ -51,10 +51,8 @@ void	ls_init_list(t_ls_list *start, int ac, char **av, int i,
 		new.name = av[i];
         new.path = ft_strjoin(new.name, "/");
 		if (lstat(new.name, &new.stat))
-		{
 			ft_lstinsert_if_end(&start->error,
 				ft_lstnew(&new, sizeof(t_ls_info)), &ls_sort_name);
-		}
 		else
 			ls_add_to_list(start, &new, option);
 		i++;

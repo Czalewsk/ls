@@ -33,9 +33,9 @@ typedef struct	s_ls_info
 	char			*name;
 	DIR				*dir;
 	struct stat		stat;
+	char            err;
 	struct dirent	*data;
 	char            *path;
-	t_list          *files;
 }				t_ls_info;
 
 int				get_param(int ac, char **av, char (*option)[128]);
