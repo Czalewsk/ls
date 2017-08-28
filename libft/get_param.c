@@ -15,9 +15,7 @@
 int		get_param(int ac, char **av, char (*option)[128])
 {
 	int		i;
-	int		result;
 
-	result = 0;
 	i = 0;
 	if (!option)
 		return (0);
