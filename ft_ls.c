@@ -18,9 +18,10 @@ void		ls_del_dir(void *content, size_t size)
 
 	(void)size;
 	tmp = content;
-	ft_strdel(&tmp->path);
+	if (tmp->path)
+		ft_strdel(&tmp->path);
 	if (tmp->data)
-	    ft_memdel((void**)&tmp->data)
+	    ft_memdel((void**)&tmp->data);
 	if (tmp->dir)
 		closedir(tmp->dir);
 	ft_memdel(&content);

@@ -38,11 +38,13 @@ void	ls_init_list(t_ls_list *start, int ac, char **av, int i,
 {
 	t_ls_info		new;
 
+	new.data = NULL;
 	if (i == ac)
 	{
 		new.dir = opendir(".");
 		new.name = ".";
         new.path = ft_strdup("./");
+		ft_printf("----___--%p\n", new.path);
 		lstat(new.name, &new.stat);
 		ft_lstadd(&start->folders, ft_lstnew(&new, sizeof(t_ls_info)));
 	}

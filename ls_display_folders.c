@@ -28,6 +28,7 @@ static void		ls_add_to_files(t_ls_list *start, struct dirent *data,
 	}
 	new.data = ft_memdup(data, sizeof(struct dirent));
 	new.name = (new.data)->d_name;
+	ft_printf("------NAME=%p\n", new.data);
 	new.path = ft_strjoin(((t_ls_info*)(start->folders->content))->path, new.name);
 	new.path = ft_strjoin_free(new.path, 1, "/", 0);
 	new.err = lstat(new.path, &new.stat) ? 1 : 0;
