@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/26 16:12:38 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/02 19:40:38 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ typedef struct	s_ls_info
 {
 	char			*name;
 	DIR				*dir;
+	char			*path;
 	struct stat		stat;
-	char            err;
-	struct dirent	*data;
-	char            *path;
+	char			err;
 }				t_ls_info;
 
 int				get_param(int ac, char **av, char (*option)[128]);

@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 11:04:14 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/26 19:45:27 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/02 17:28:54 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static void	ls_display_line(t_ls_info *file, char dot_files)
 {
 	if (dot_files || *file->name != '.')
-		ft_printf("%s\n", file->name);
+		ft_printf("%s(%s)\n", file->name, file->path);
 }
 
 static void	ls_display_col(t_ls_info *file, char dot_files)
 {
 	if (dot_files || *file->name != '.')
-		ft_printf("%s\n", file->name);
+		ft_printf("%s(%s)\n", file->name, file->path);
 }
 
 static void	ls_display_ext(t_ls_info *files, char dot_files)
