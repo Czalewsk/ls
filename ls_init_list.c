@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:58:24 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/04 15:31:28 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/04 18:05:28 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ls_add_to_list(t_ls_list *start, t_ls_info *new,
 		f = ls_set_sort(option);
 	if (new->stat.st_mode & 0040000)
 	{
-		new->err = (new->dir = opendir(new->name)) ? 0 : 1;
+		new->err |= (new->dir = opendir(new->name)) ? 0 : 1;
 		ft_lstinsert_if_end(&start->folders,
 				ft_lstnew(new, sizeof(t_ls_info)), f);
 	}
