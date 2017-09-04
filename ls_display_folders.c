@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/24 10:23:23 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/04 10:21:43 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/04 12:06:17 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void		ls_add_to_list(t_ls_list *start, t_ls_info *new,
 			ft_strcmp(new->name, ".") && ft_strcmp(new->name, ".."))
 	{
 		new->is_folder = 1;
-		new->err = (new->dir = opendir(new->name)) ? 0 : 1;
+		new->err = (new->dir = opendir(new->path)) ? 0 : 1;
 		ft_lst_add_index(&start->folders,
 				ft_lstnew(new, sizeof(t_ls_info)), (*i)++);
 	}
@@ -38,14 +38,14 @@ static void		ls_add_to_list(t_ls_list *start, t_ls_info *new,
 			ft_lstnew(new, sizeof(t_ls_info)), f);
 }
 
-static void		ls_init_files(t_ls_list *start, t_ls_info *folder,
+static int		ls_init_files(t_ls_list *start, t_ls_info *folder,
 		char (*option)[128], int *i)
 {
 	t_ls_info		new;
 	struct dirent	*data;
 
 	if (!folder || !folder->dir || folder->err)
-		return ;
+		return (0);
 	while ((data = readdir(folder->dir)))
 	{
 		ft_bzero(&new, sizeof(t_ls_info));
@@ -55,6 +55,7 @@ static void		ls_init_files(t_ls_list *start, t_ls_info *folder,
 		lstat(new.path, &new.stat);
 		ls_add_to_list(start, &new, option, i);
 	}
+	return (1);
 }
 
 void			ls_display_folders(char (*option)[128], t_ls_list *start)
@@ -70,10 +71,15 @@ void			ls_display_folders(char (*option)[128], t_ls_list *start)
 	{
 		i = 0;
 		folder = folders->content;
-		start->print ? ft_printf("\n%s:\n", folder->name) : 0;
 		prev = folders;
 		ls_init_files(start, folder, option, &i);
-		ls_display_files(start, option);
+		if (!folder->err)
+		{
+			start->print ? ft_printf("\n%s:\n", folder->name) : 0;
+			ls_display_files(start, option);
+		}
+		else
+			ft_printf("\nls: %s: Permission denied(%s)\n", folder->name, folder->path);
 		ft_lst_remove(&start->folders, prev, &ls_del_folders);
 		folders = start->folders;
 	}
