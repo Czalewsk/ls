@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:11 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/23 20:40:17 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/04 14:42:32 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ int		main(int ac, char **av)
 	ft_bzero(option, sizeof(option));
 	if ((i = check_option(ac, av, &option)) == -1)
 		return (0);
-	ft_ls(ac, av, i, &option);
+	ft_ls(ac, av, &option);
 	return (1);
 }

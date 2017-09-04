@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:04:52 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/08/22 13:05:51 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/04 14:39:01 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 int		get_param(int ac, char **av, char (*option)[128])
 {
-	int		i;
+	static int		i;
 
-	i = 0;
-	if (!option)
-		return (0);
+	if (!option || !av)
+		return (i);
 	while (++i < ac)
 	{
 		if (av[i][0] != '-' || !av[i][1] || !ft_strcmp(av[i], "--"))

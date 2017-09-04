@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 20:08:53 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/04 10:00:07 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/04 15:15:10 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void		ls_del_folders(void *content, size_t size)
 
 	(void)size;
 	tmp = content;
-		ft_strdel(&tmp->name);
-		if (tmp->path)
-			ft_strdel(&tmp->path);
-		//	if (tmp->data)
-		//	    ft_memdel((void**)&tmp->data);
-		if (tmp->dir)
-			closedir(tmp->dir);
+	ft_strdel(&tmp->name);
+	if (tmp->files)
+		ft_lstdel(&tmp->files, &ls_del_files);
+	if (tmp->path)
+		ft_strdel(&tmp->path);
+	if (tmp->dir)
+		closedir(tmp->dir);
 	ft_memdel(&content);
 }
 
@@ -39,22 +39,17 @@ void		ls_del_files(void *content, size_t size)
 		ft_strdel(&tmp->name);
 		if (tmp->path)
 			ft_strdel(&tmp->path);
-		//	if (tmp->data)
-		//	    ft_memdel((void**)&tmp->data);
 		if (tmp->dir)
 			closedir(tmp->dir);
 	}
 	ft_memdel(&content);
 }
 
-void		ft_ls(int ac, char **av, int i, char (*option)[128])
+void		ft_ls(int ac, char **av, char (*option)[128])
 {
 	t_ls_list	start;
 
-	start.folders = NULL;
-	start.files = NULL;
-	start.error = NULL;
-	start.print = 0;
-	ls_init_list(&start, ac, av, i, option);
+	ft_bzero(&start, sizeof(start));
+	ls_init_list(&start, ac, av, option);
 	ls_wrapper(option, &start);
 }

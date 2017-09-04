@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/04 10:01:10 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/04 17:16:06 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,23 @@ typedef struct	s_ls_info
 	struct stat		stat;
 	char			err;
 	char			is_folder;
+	t_list			*files;
+	int				deep;
 }				t_ls_info;
 
 int				get_param(int ac, char **av, char (*option)[128]);
-void			ft_ls(int ac, char **av, int i, char (*option)[128]);
+void			ft_ls(int ac, char **av, char (*option)[128]);
 void			ls_wrapper(char (*option)[128], t_ls_list *start);
 void			ls_del_files(void *content, size_t size);
 void			ls_del_folders(void *content, size_t size);
 void			ls_display(char (*option)[128], t_ls_list *start);
 void			*ls_set_display(char (*option)[128]);
 void			*ls_set_sort(char (*option)[128]);
-void			ls_init_list(t_ls_list *start, int ac, char **av, int i,
+void			ls_init_list(t_ls_list *start, int ac, char **av,
 		char (*option)[128]);
 int				ls_sort_name(t_list *prev, t_list *new);
-void			ls_display_files(t_ls_list *start, char (*option)[128]);
+void			ls_display_files(t_ls_list *start, char (*option)[128],
+		t_list *files);
 void			ls_display_error(t_ls_list *start);
 void			ls_display_folders(char (*option)[128], t_ls_list *start);
 
