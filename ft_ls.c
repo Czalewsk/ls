@@ -6,25 +6,44 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 20:08:53 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/02 18:41:50 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/04 10:00:07 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		ls_del_dir(void *content, size_t size)
+void		ls_del_folders(void *content, size_t size)
 {
 	t_ls_info	*tmp;
 
 	(void)size;
 	tmp = content;
-	ft_strdel(&tmp->name);
-	if (tmp->path)
-		ft_strdel(&tmp->path);
-//	if (tmp->data)
-//	    ft_memdel((void**)&tmp->data);
-	if (tmp->dir)
-		closedir(tmp->dir);
+		ft_strdel(&tmp->name);
+		if (tmp->path)
+			ft_strdel(&tmp->path);
+		//	if (tmp->data)
+		//	    ft_memdel((void**)&tmp->data);
+		if (tmp->dir)
+			closedir(tmp->dir);
+	ft_memdel(&content);
+}
+
+void		ls_del_files(void *content, size_t size)
+{
+	t_ls_info	*tmp;
+
+	(void)size;
+	tmp = content;
+	if (!tmp->is_folder)
+	{
+		ft_strdel(&tmp->name);
+		if (tmp->path)
+			ft_strdel(&tmp->path);
+		//	if (tmp->data)
+		//	    ft_memdel((void**)&tmp->data);
+		if (tmp->dir)
+			closedir(tmp->dir);
+	}
 	ft_memdel(&content);
 }
 

@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 19:36:57 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/02 12:04:11 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/04 10:01:57 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ void	ls_display_error(t_ls_list *start)
 				((t_ls_info*)cur->content)->name);
 		cur = cur->next;
 	}
-	ft_lstdel(&start->error, &ls_del_dir);
+	ft_lstdel(&start->error, &ls_del_folders);
 }
