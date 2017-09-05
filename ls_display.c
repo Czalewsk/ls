@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 11:04:14 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/04 15:23:27 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/05 08:39:35 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void		*ls_set_display(char (*option)[128])
 void		ls_display_files(t_ls_list *start, char (*option)[128],
 		t_list *files)
 {
+	t_ls_info	*file;
 	t_list		*prev;
 	t_list		*cur;
 	static void	(*f)(t_ls_info*, char);
@@ -64,7 +65,11 @@ void		ls_display_files(t_ls_list *start, char (*option)[128],
 		start->print = 1;
 	while (cur)
 	{
-		f(cur->content, dot_files);
+		file = cur->content;
+		if (!file->stat.st_mode && (dot_files || *file->name != '.'))
+			ft_printf("ls: %s: Permission denied\n", file->name);
+		else if ((file->stat.st_mode & 0000100) || !file->is_folder)
+			f(file, dot_files);
 		prev = cur;
 		cur = cur->next;
 		ft_lst_remove(&start->files, prev, &ls_del_files);

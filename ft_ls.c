@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 20:08:53 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/04 15:15:10 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/05 08:10:21 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void		ls_del_folders(void *content, size_t size)
 
 	(void)size;
 	tmp = content;
-	ft_strdel(&tmp->name);
+	if (tmp->name)
+		ft_strdel(&tmp->name);
 	if (tmp->files)
 		ft_lstdel(&tmp->files, &ls_del_files);
-	if (tmp->path)
-		ft_strdel(&tmp->path);
+	ft_strdel(&tmp->path);
 	if (tmp->dir)
 		closedir(tmp->dir);
 	ft_memdel(&content);
