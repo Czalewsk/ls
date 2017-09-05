@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 09:21:02 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/05 16:29:34 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/05 20:53:21 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,31 @@ int			ls_get_longer(t_list *files, char dot_files)
 	return (longer);
 }
 
-void		ls_format_col(t_ls_info *file, char dot_files, t_list *files,
+void		ls_format_col(t_ls_info *start, char dot_files, t_list *files,
 		t_ls_col *col)
 {
 	char			*line;
 	int				i;
-	int				d;
-	static char		space[256];
-	//t_list		*prev;
+	static char		space[257];
+	t_ls_info		*file;
+	t_list			*next;
 
-	ft_printf("SIZE = %d\n", col->size_line);
 	line = ft_memalloc(col->size_line);
-	if (!*space)
-		ft_memset(space, ' ', 255);
-	i = 0;
-	while (files && i++ < col->max_entry && !(d = 0))
+	if (!(i = 0) && !*space)
+		ft_memset(space, ' ', 256);
+	while (files)
 	{
 		file = files->content;
-		if ((dot_files || *file->name != '.') && !(d++ % col->max_entry))
+		if ((dot_files || *file->name != '.') && !(i++ % col->max_entry))
 		{
 			ft_strcat(line, file->name);
-			ft_strcat(line, space + (255 - ft_strlen(file->name)));
-		//	ft_lst_remove(&start->files, prev, &ls_del_files);
+			ft_strcat(line, space + (255 + col->max_len - ft_strlen(file->name)));
+			next = files->next;
+			ft_lst_remove(&start->files, files, &ls_del_files);
 		}
-		files = files->next;
+		files = next;
+		if (i >= col->max_entry)
+			break ;
 	}
 	ft_printf("%s\n", line);
 	ft_strdel(&line);

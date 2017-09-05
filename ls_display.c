@@ -6,14 +6,14 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 11:04:14 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/05 16:42:08 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/05 20:44:32 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 static void	ls_display_line(t_ls_info *file, char dot_files, t_list *files,
-		t_ls_info *start)
+		t_ls_list *start)
 {
 	if (file && (dot_files || *file->name != '.'))
 		ft_printf("%s\n", file->name);
@@ -21,33 +21,34 @@ static void	ls_display_line(t_ls_info *file, char dot_files, t_list *files,
 		ft_lst_remove_index(&start->files, 0, &ls_del_files);
 }
 
-static void	ls_display_col(t_ls_info *file, char dot_files, t_list *files, 
-		t_ls_info *start)
+static void	ls_display_col(t_ls_info *file, char dot_files, t_list *files,
+		t_ls_list *start)
 {
 	static t_ls_col		col;
 
 	if (!file)
+	{
 		ft_bzero(&col, sizeof(col));
+		return ;
+	}
 	else if (file && !col.max_entry)
 	{
 		col.col = ls_get_col();
 		ft_printf("COL  = %d\n", col.col);
-		col.max_len = ls_get_longer(files,dot_files);
+		col.max_len = ls_get_longer(files, dot_files);
 		ft_printf("MAX LEN  = %d\n", col.max_len);
 		col.max_entry = col.col / (col.max_len + 1);
 		col.max_entry = col.max_entry > 0 ? col.max_entry : 1;
 		ft_printf("MAX ENTRY =%d\n", col.max_entry);
-		col.size_line = col.max_entry > 1 ? col.col + 1: col.max_len + 1;
-		if (ft_lstlen(files) == 3 && !dot_files 
-				&& ft_printf("%s\n", file->name))
-			return ;
+		col.size_line = col.max_entry > 1 ? col.col + 1 : col.max_len + 1;
+		ft_printf("size line  =%d\n", col.size_line);
 	}
 	ls_format_col(file, dot_files, files, &col);
 	ft_lst_remove(&start->files, files, &ls_del_files);
 }
 
-static void	ls_display_ext(t_ls_info *file, char dot_files, t_list *files, 
-		t_ls_info *start)
+static void	ls_display_ext(t_ls_info *file, char dot_files, t_list *files,
+		t_ls_list *start)
 {
 	(void)start;
 	(void)files;
@@ -58,7 +59,7 @@ static void	ls_display_ext(t_ls_info *file, char dot_files, t_list *files,
 
 void		*ls_set_display(char (*option)[128])
 {
-	static void	(*f)(t_ls_info*, char, t_list*, t_ls_info*);
+	static void	(*f)(t_ls_info*, char, t_list*, t_ls_list*);
 
 	if (!f)
 	{
