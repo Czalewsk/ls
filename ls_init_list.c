@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:58:24 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/04 18:05:28 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/05 18:21:19 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ void		ls_init_list(t_ls_list *start, int ac, char **av,
 	}
 	while (i < ac)
 	{
+		ft_bzero(&new, sizeof(t_ls_info));
 		new.name = ft_strdup(av[i]);
 		new.path = ft_strdup(av[i]);
-		if (lstat(new.name, &new.stat))
+		if ((new.err = lstat(new.path, &new.stat) ? errno : 0))
 			ft_lstinsert_if_end(&start->error,
 					ft_lstnew(&new, sizeof(t_ls_info)), &ls_sort_name);
 		else

@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 10:30:45 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/04 09:14:50 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/05 16:13:15 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_lst_remove(t_list **alst, t_list *dl, void (*del)(void *, size_t))
 	t_list		**prev;
 
 	prev = alst;
-	cur = *prev;
+	cur = prev ? *prev : NULL;
 	while (cur)
 	{
 		if (cur == dl)
