@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 09:21:02 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/06 19:48:29 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/06 19:55:57 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 				ft_strdel(&line);
 				break ;
 			}
-			ft_lst_remove(file->files ? &file->files : &start->files,
+			ft_lst_remove(file && file->files ? &file->files : &start->files,
 					files, &ls_del_files);
 		}
 		files = next;
