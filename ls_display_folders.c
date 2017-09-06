@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/24 10:23:23 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/05 08:30:45 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/06 18:07:02 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			ls_display_folders(char (*option)[128], t_ls_list *start)
 			ft_printf("%s:\n", folder->path) : 0;
 		ls_init_files(start, folder, option);
 		if (!folder->err)
-			ls_display_files(start, option, folder->files);
+			ls_display_files(start, option, folder);
 		if ((folder->err || !(folder->stat.st_mode & 0000100))
 				&& folder->is_folder && (start->print = 1))
 			ft_printf("ls: %s: Permission denied\n", folder->name);

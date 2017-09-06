@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 11:04:14 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/05 20:44:32 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/06 18:56:35 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,14 @@ static void	ls_display_col(t_ls_info *file, char dot_files, t_list *files,
 	else if (file && !col.max_entry)
 	{
 		col.col = ls_get_col();
-		ft_printf("COL  = %d\n", col.col);
 		col.max_len = ls_get_longer(files, dot_files);
-		ft_printf("MAX LEN  = %d\n", col.max_len);
 		col.max_entry = col.col / (col.max_len + 1);
 		col.max_entry = col.max_entry > 0 ? col.max_entry : 1;
-		ft_printf("MAX ENTRY =%d\n", col.max_entry);
 		col.size_line = col.max_entry > 1 ? col.col + 1 : col.max_len + 1;
-		ft_printf("size line  =%d\n", col.size_line);
+		col.nb_line = (ft_lstlen(files) / col.max_entry);
+		col.nb_line = col.nb_line > 0 ? col.nb_line : 1;
 	}
-	ls_format_col(file, dot_files, files, &col);
+	ls_format_col(start, dot_files, files, &col);
 	ft_lst_remove(&start->files, files, &ls_del_files);
 }
 
@@ -74,9 +72,8 @@ void		*ls_set_display(char (*option)[128])
 }
 
 void		ls_display_files(t_ls_list *start, char (*option)[128],
-		t_list *files)
+		t_ls_info *file)
 {
-	t_ls_info	*file;
 	t_list		*prev;
 	t_list		*cur;
 	static void	(*f)(t_ls_info*, char, t_list*, t_ls_list*);
@@ -87,7 +84,7 @@ void		ls_display_files(t_ls_list *start, char (*option)[128],
 		f = ls_set_display(option);
 		dot_files = ((*option)['a']);
 	}
-	cur = files ? files : start->files;
+	cur =  file && file->files ? file->files : start->files;
 	start->print = cur ? 1 : start->print;
 	while (cur)
 	{

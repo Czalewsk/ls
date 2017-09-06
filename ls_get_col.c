@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 09:21:02 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/05 20:53:21 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/06 19:48:29 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int			ls_get_longer(t_list *files, char dot_files)
 	int				cur;
 
 	longer = 0;
+	cur = 0;
 	while (files)
 	{
 		file = files->content;
@@ -38,32 +39,50 @@ int			ls_get_longer(t_list *files, char dot_files)
 	return (longer);
 }
 
-void		ls_format_col(t_ls_info *start, char dot_files, t_list *files,
+int			format_line(t_ls_info *file, t_ls_col *col, char **line)
+{
+	static char		space[257];
+	static int		i;
+
+	if (!*space)
+		ft_memset(space, ' ', 256);
+	ft_strcat(*line, file->name);
+	ft_strcat(*line, space + (255 - col->max_len + ft_strlen(file->name)));
+	if (i++ >= col->max_entry - 1)
+	{
+		i = 0;
+		return (1);
+	}
+	return (0);
+}
+
+void		ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 		t_ls_col *col)
 {
 	char			*line;
 	int				i;
-	static char		space[257];
 	t_ls_info		*file;
 	t_list			*next;
 
 	line = ft_memalloc(col->size_line);
-	if (!(i = 0) && !*space)
-		ft_memset(space, ' ', 256);
+	i = 0;
 	while (files)
 	{
 		file = files->content;
-		if ((dot_files || *file->name != '.') && !(i++ % col->max_entry))
+		next = files->next;
+		if ((dot_files || *file->name != '.') && !(i++ % col->nb_line))
 		{
-			ft_strcat(line, file->name);
-			ft_strcat(line, space + (255 + col->max_len - ft_strlen(file->name)));
-			next = files->next;
-			ft_lst_remove(&start->files, files, &ls_del_files);
+			if (format_line(file, col, &line) || !next)
+			{
+				ft_lst_remove(&start->files, files, &ls_del_files);
+				ft_printf("%s\n", line);
+				ft_strdel(&line);
+				break ;
+			}
+			ft_lst_remove(file->files ? &file->files : &start->files,
+					files, &ls_del_files);
 		}
 		files = next;
-		if (i >= col->max_entry)
-			break ;
 	}
-	ft_printf("%s\n", line);
 	ft_strdel(&line);
 }
