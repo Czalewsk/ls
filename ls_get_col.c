@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 09:21:02 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/07 10:17:31 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/07 10:22:40 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,14 @@ void		ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 	int				i;
 	t_ls_info		*file;
 	int				entry;
+	t_list			*next;
 
 	line = ft_memalloc(col->size_line);
 	i = 0;
 	entry = 0;
 	while (files)
 	{
+		next = files->next;
 		file = files->content;
 		if ((dot_files || *file->name != '.') && !file->is_display
 				&& !(i++ % col->nb_line))
@@ -79,7 +81,7 @@ void		ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 			}
 			ft_lst_remove(&start->files, files, &ls_del_files);
 		}
-		files = files->next;
+		files = next;
 	}
 	ft_strdel(&line);
 }
