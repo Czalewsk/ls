@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/24 10:23:23 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/06 18:07:02 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/07 08:22:19 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void		ls_add_to_list(t_ls_list *start, t_ls_info *new,
 	static char	recursive;
 	static char	dot_files;
 
+	(void)folder;
 	if (!f)
 	{
 		f = ls_set_sort(option);
@@ -34,7 +35,7 @@ static void		ls_add_to_list(t_ls_list *start, t_ls_info *new,
 		ft_lstinsert_if_end(&start->folders,
 				ft_lstnew(new, sizeof(t_ls_info)), f);
 	}
-	ft_lstinsert_if_end(&folder->files,
+	ft_lstinsert_if_end(&start->files,
 			ft_lstnew(new, sizeof(t_ls_info)), f);
 }
 
@@ -65,7 +66,6 @@ void			ls_display_folders(char (*option)[128], t_ls_list *start)
 {
 	t_list			*folders;
 	t_ls_info		*folder;
-	t_list			*prev;
 	int				i;
 
 	folders = start->folders;
@@ -73,7 +73,6 @@ void			ls_display_folders(char (*option)[128], t_ls_list *start)
 	{
 		i = 0;
 		folder = folders->content;
-		prev = folders;
 		start->print ? write(1, "\n", 1) : 0;
 		start->print || ft_lstlen(start->folders) > 1 ?
 			ft_printf("%s:\n", folder->path) : 0;
@@ -83,7 +82,7 @@ void			ls_display_folders(char (*option)[128], t_ls_list *start)
 		if ((folder->err || !(folder->stat.st_mode & 0000100))
 				&& folder->is_folder && (start->print = 1))
 			ft_printf("ls: %s: Permission denied\n", folder->name);
-		ft_lst_remove(&start->folders, prev, &ls_del_folders);
+		ft_lst_remove(&start->folders, folders, &ls_del_folders);
 		folders = start->folders;
 	}
 }
