@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/14 09:02:32 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/14 10:30:29 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct	s_ls_info
 typedef struct	s_ls_col
 {
 	int				col;
+	int				entry;
 	int				max_entry;
 	int				max_len;
 	int				size_line;
@@ -68,7 +69,7 @@ void			ls_display_error(t_ls_list *start);
 void			ls_display_folders(char (*option)[128], t_ls_list *start);
 int				ls_get_col(void);
 int				ls_get_longer(t_list *files, char dot_files);
-void			ls_format_col(t_ls_list *start, char dot_files, t_list *files,
+int				ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 		t_ls_col *col);
 int				ls_check_perm_x(t_ls_info *file, char dot_files);
 void			ls_display_col(t_ls_info *file, char dot_files, t_list *files,
