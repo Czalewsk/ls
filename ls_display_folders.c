@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/24 10:23:23 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/07 08:22:19 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/14 09:23:38 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void		ls_add_to_list(t_ls_list *start, t_ls_info *new,
 		recursive = (*option)['R'];
 		dot_files = (*option)['a'];
 	}
+	if (*new->name == '.' && !dot_files)
+		return ;
 	if (recursive && (new->stat.st_mode & 0040000) &&
 		(*new->name != '.' || dot_files) &&
 			ft_strcmp(new->name, ".") && ft_strcmp(new->name, ".."))
@@ -80,7 +82,7 @@ void			ls_display_folders(char (*option)[128], t_ls_list *start)
 		if (!folder->err)
 			ls_display_files(start, option, folder);
 		if ((folder->err || !(folder->stat.st_mode & 0000100))
-				&& folder->is_folder && (start->print = 1))
+				&& (start->print = 1))
 			ft_printf("ls: %s: Permission denied\n", folder->name);
 		ft_lst_remove(&start->folders, folders, &ls_del_folders);
 		folders = start->folders;

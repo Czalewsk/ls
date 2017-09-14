@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 09:21:02 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/07 10:22:40 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/14 10:03:18 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int			format_line(t_ls_info *file, t_ls_col *col, char **line, int *entry)
 		ft_memset(space, ' ', 256);
 	file->is_display = 1;
 	strcat(*line, file->name);
-	ft_strcat(*line, space + (255 - col->max_len + ft_strlen(file->name)));
-	if ((*entry)++ >= col->max_entry - 1)
+	if ((*entry)++ >= col->max_entry - 1 || col->nb_line == 1)
 		return (1);
+	ft_strcat(*line, space + (255 - col->max_len + ft_strlen(file->name)));
 	return (0);
 }
 
@@ -62,6 +62,7 @@ void		ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 	int				entry;
 	t_list			*next;
 
+	(void)start;
 	line = ft_memalloc(col->size_line);
 	i = 0;
 	entry = 0;
@@ -69,19 +70,21 @@ void		ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 	{
 		next = files->next;
 		file = files->content;
-		if ((dot_files || *file->name != '.') && !file->is_display
-				&& !(i++ % col->nb_line))
+//		ft_printf("NAME=%s\n", file->name);
+		if (!file->is_display && (dot_files || *file->name != '.')
+				&& (!col->nb_line || !(i++ % col->nb_line)))
 		{
-			if (format_line(file, col, &line, &entry) || !files->next)
+			if (format_line(file, col, &line, &entry))
 			{
 				entry = 0;
 				ft_printf("%s\n", line);
 				ft_strdel(&line);
 				return ;
 			}
-			ft_lst_remove(&start->files, files, &ls_del_files);
+			file->is_display = 1;
 		}
 		files = next;
+//		sleep(1);
 	}
 	ft_strdel(&line);
 }
