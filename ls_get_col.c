@@ -6,13 +6,13 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 09:21:02 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/15 09:30:53 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/15 11:04:14 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int				ls_get_col(void)
+inline int		ls_get_col(void)
 {
 	struct winsize	ws;
 
@@ -20,7 +20,7 @@ int				ls_get_col(void)
 	return (ws.ws_col);
 }
 
-int				ls_get_longer(t_list *files, char dot_files)
+inline int		ls_get_longer(t_list *files, char dot_files)
 {
 	t_ls_info		*file;
 	int				longer;
@@ -74,7 +74,8 @@ int				ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 	while (files)
 	{
 		file = files->content;
-		if (!file->is_display && (dot_files || *file->name != '.')
+		if (ls_check_perm_x(file, dot_files)
+				&& !file->is_display && (dot_files || *file->name != '.')
 				&& (!col->nb_line || !(i++ % col->nb_line))
 				&& format_line(file, col, &line))
 			return (ls_print_line(col, &line));
