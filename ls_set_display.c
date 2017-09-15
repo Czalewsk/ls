@@ -15,11 +15,14 @@
 static void	ls_display_ext(t_ls_info *file, char dot_files, t_list *files,
 		t_ls_list *start)
 {
-	(void)start;
-	(void)files;
-	(void)file;
-	(void)dot_files;
-	ft_lst_remove(&start->files, files, &ls_del_files);
+	while (files)
+	{
+		file = files->content;
+		if (ls_check_perm_x(files->content, dot_files) == 1)
+			ls_create_ln(t_ls_info *file);
+		files = files->next;
+	}
+	ft_lstdel(&start->files, &ls_del_files);
 }
 
 static void	ls_display_line(t_ls_info *file, char dot_files, t_list *files,

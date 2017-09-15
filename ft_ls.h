@@ -74,5 +74,6 @@ int				ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 int				ls_check_perm_x(t_ls_info *file, char dot_files);
 void			ls_display_col(t_ls_info *file, char dot_files, t_list *files,
 		t_ls_list *start);
+void			ls_create_ln(t_ls_info *file);
 
 #endif
