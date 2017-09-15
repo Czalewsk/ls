@@ -6,13 +6,13 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 09:21:02 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/14 10:31:37 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/15 09:30:53 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			ls_get_col(void)
+int				ls_get_col(void)
 {
 	struct winsize	ws;
 
@@ -20,7 +20,7 @@ int			ls_get_col(void)
 	return (ws.ws_col);
 }
 
-int			ls_get_longer(t_list *files, char dot_files)
+int				ls_get_longer(t_list *files, char dot_files)
 {
 	t_ls_info		*file;
 	int				longer;
@@ -39,7 +39,7 @@ int			ls_get_longer(t_list *files, char dot_files)
 	return (longer);
 }
 
-int			format_line(t_ls_info *file, t_ls_col *col, char **line, int *entry)
+int				format_line(t_ls_info *file, t_ls_col *col, char **line)
 {
 	static char		space[257];
 
@@ -53,13 +53,20 @@ int			format_line(t_ls_info *file, t_ls_col *col, char **line, int *entry)
 	return (0);
 }
 
-int		ls_format_col(t_ls_list *start, char dot_files, t_list *files,
+static int		ls_print_line(t_ls_col *col, char **line)
+{
+	col->entry = 0;
+	ft_putendl(*line);
+	ft_strdel(line);
+	return (1);
+}
+
+int				ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 		t_ls_col *col)
 {
 	char			*line;
 	int				i;
 	t_ls_info		*file;
-	int				entry;
 
 	(void)start;
 	line = ft_memalloc(col->size_line);
@@ -68,22 +75,13 @@ int		ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 	{
 		file = files->content;
 		if (!file->is_display && (dot_files || *file->name != '.')
-				&& (!col->nb_line || !(i++ % col->nb_line)))
-		{
-		if (format_line(file, col, &line, &entry) || !files->next)
-			{
-
-				col->entry = 0;
-				ft_printf("%s\n", line);
-				ft_strdel(&line);
-				return (1);
-			}
-			file->is_display = 1;
-		}
+				&& (!col->nb_line || !(i++ % col->nb_line))
+				&& format_line(file, col, &line))
+			return (ls_print_line(col, &line));
 		files = files->next;
 	}
-	if (entry)
-		ft_printf("%s\n", line);
+	if (col->entry)
+		return (ls_print_line(col, &line));
 	ft_strdel(&line);
 	return (0);
 }

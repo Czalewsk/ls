@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 11:04:14 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/14 08:58:53 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/15 09:26:53 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		ls_display_files(t_ls_list *start, char (*option)[128],
 		f = ls_set_display(option);
 		dot_files = ((*option)['a']);
 	}
-	cur =  start->files;
+	cur = start->files;
 	start->print = cur ? 1 : start->print;
 	if (cur)
 		f(cur->content, dot_files, cur, start);
