@@ -19,7 +19,7 @@ static void	ls_display_ext(t_ls_info *file, char dot_files, t_list *files,
 	{
 		file = files->content;
 		if (ls_check_perm_x(files->content, dot_files) == 1)
-			ls_create_ln(t_ls_info *file);
+			ls_create_ln(file);
 		files = files->next;
 	}
 	ft_lstdel(&start->files, &ls_del_files);

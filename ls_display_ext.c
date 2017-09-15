@@ -1,6 +1,9 @@
 #include "ft_ls.h"
 
-void		ls_create_ln(t_ls_info *file)
+int		ls_create_ln(t_ls_info *file)
 {
-	(void)file;
+	unsigned long	mode;
+
+	mode = file->stat.st_mode;
+
 }

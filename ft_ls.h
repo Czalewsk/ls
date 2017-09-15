@@ -40,6 +40,7 @@ typedef struct	s_ls_info
 	char			is_folder;
 	int				deep;
 	int				is_display;
+	char			perms[10];
 }				t_ls_info;
 
 typedef struct	s_ls_col
