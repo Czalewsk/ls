@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/14 10:30:29 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/16 12:33:40 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include <sys/stat.h>
 # include <sys/ioctl.h>
 # include <errno.h>
+# include <uuid/uuid.h>
+# include <pwd.h>
+# include <grp.h>
+# include <uuid/uuid.h>
 
 typedef struct	s_ls_list
 {
@@ -40,7 +44,7 @@ typedef struct	s_ls_info
 	char			is_folder;
 	int				deep;
 	int				is_display;
-	char			perms[10];
+	char			perms[11];
 }				t_ls_info;
 
 typedef struct	s_ls_col
@@ -52,6 +56,15 @@ typedef struct	s_ls_col
 	int				size_line;
 	int				nb_line;
 }				t_ls_col;
+
+typedef struct	s_ls_ext
+{
+	unsigned long	total;
+	int				link;
+	int				user;
+	int				group;
+	int				size;
+}				t_ls_ext;
 
 int				get_param(int ac, char **av, char (*option)[128]);
 void			ft_ls(int ac, char **av, char (*option)[128]);
@@ -75,6 +88,6 @@ int				ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 int				ls_check_perm_x(t_ls_info *file, char dot_files);
 void			ls_display_col(t_ls_info *file, char dot_files, t_list *files,
 		t_ls_list *start);
-void			ls_create_ln(t_ls_info *file);
+void			ls_create_ln(t_ls_info *file, t_ls_ext *info);
 
 #endif
