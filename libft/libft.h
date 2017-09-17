@@ -6,7 +6,7 @@
 /*   By: czalewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 14:37:53 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/16 12:10:57 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/17 07:27:49 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,8 @@ char			*ft_cfextension(char *filename, char *extension);
 int				get_param(int ac, char **av, char (*option)[128]);
 void			ft_lst_add_index(t_list **alst, t_list *new, int index);
 int				ft_ulintlen(unsigned long n);
+size_t			ft_abs(long a, long b);
+char			*ft_cpy_until_r(char *s, const char *cpy, char c, int n);
+char			*ft_cpy_until(char *s, const char *cpy, char c, int n);
 
 #endif

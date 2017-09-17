@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/16 12:33:40 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/17 05:57:21 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <pwd.h>
 # include <grp.h>
 # include <uuid/uuid.h>
+# include <sys/xattr.h>
+# include <time.h>
 
 typedef struct	s_ls_list
 {
@@ -33,6 +35,16 @@ typedef struct	s_ls_list
 	t_list		*folders;
 	char		print;
 }				t_ls_list;
+
+typedef struct	s_ls_ln
+{
+	char			perms[12];
+	unsigned long	size;
+	unsigned long	link;
+	char			time[13];
+	char			*owner;
+	char			*group;
+}				t_ls_ln;
 
 typedef struct	s_ls_info
 {
@@ -44,7 +56,7 @@ typedef struct	s_ls_info
 	char			is_folder;
 	int				deep;
 	int				is_display;
-	char			perms[11];
+	t_ls_ln			*line;
 }				t_ls_info;
 
 typedef struct	s_ls_col
@@ -60,11 +72,18 @@ typedef struct	s_ls_col
 typedef struct	s_ls_ext
 {
 	unsigned long	total;
+	int				name;
 	int				link;
 	int				user;
 	int				group;
 	int				size;
 }				t_ls_ext;
+
+typedef struct	s_ls_entry
+{
+	int				type;
+	char			match;
+}				t_ls_entry;
 
 int				get_param(int ac, char **av, char (*option)[128]);
 void			ft_ls(int ac, char **av, char (*option)[128]);
@@ -88,6 +107,7 @@ int				ls_format_col(t_ls_list *start, char dot_files, t_list *files,
 int				ls_check_perm_x(t_ls_info *file, char dot_files);
 void			ls_display_col(t_ls_info *file, char dot_files, t_list *files,
 		t_ls_list *start);
-void			ls_create_ln(t_ls_info *file, t_ls_ext *info);
+void			ls_create_ln(t_ls_info *file, t_ls_ext *info, t_ls_ln *new,
+		time_t *actual);
 
 #endif

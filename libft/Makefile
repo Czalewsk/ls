@@ -6,7 +6,7 @@
 #    By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 13:16:18 by czalewsk          #+#    #+#              #
-#    Updated: 2017/09/16 12:10:25 by czalewsk         ###   ########.fr        #
+#    Updated: 2017/09/17 07:27:30 by czalewsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -136,7 +136,10 @@ OBJ = ft_strlen.o			\
 	  ft_cfextension.o		\
 	  get_param.o			\
 	  ft_lst_add_index.o	\
-	  ft_ulintlen.o
+	  ft_ulintlen.o			\
+	  ft_abs.o				\
+	  ft_cpy_until_r.o		\
+	  ft_cpy_until.o
 
 
 all : $(NAME)
