@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/17 05:57:21 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/17 17:41:41 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct	s_ls_ln
 	char			perms[12];
 	unsigned long	size;
 	unsigned long	link;
-	char			time[13];
+	char			time[14];
 	char			*owner;
 	char			*group;
 }				t_ls_ln;

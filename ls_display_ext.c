@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/16 10:52:34 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/17 07:37:57 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/17 17:44:28 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ void		ls_get_time(t_ls_ln *line, time_t *time, time_t *actual)
 	time_char = ctime(time) + 4;
 	ft_strncat(time_area, time_char, 7);
 	ft_abs(*actual, *time) > 15770000 ?
-		ft_strncat(time_area, time_char + 15, 5) : 
+		ft_strncat(time_area, time_char + 15, 5) :
 		ft_strncat(time_area, time_char + 7, 5);
+	*(time_area + 12) = ' ';
 //	write(1, time_area, 13);
 }
 
