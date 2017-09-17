@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/17 06:23:46 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/17 08:09:26 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/17 18:06:29 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,9 @@ char	*ft_cpy_until_r(char *s, const char *cpy, char c, int n)
 	len_s = ft_strlen(s);
 	len_cpy = ft_strlen(cpy);
 	*(s + len_s + n) = '\0';
-	while (++i < n - len_cpy - 1)
+	while (++i < n - len_cpy)
 		*(s + len_s + i) = c;
 	while (--len_cpy >= 0)
 		*(s + len_s + i + len_cpy) = *(cpy + len_cpy);
 	return (s);
 }
-
-/*
-char	*ft_cpy_until_r(char *s, const char *cpy, char c, int n)
-{
-	int		len_s;
-	int		len_cpy;
-
-	len_s = ft_strlen(s) - 1;
-	len_cpy = ft_strlen(cpy) - 1;
-	*(s + len_s + n) = '\0';
-	while (len_cpy >= 0)
-		*(s + len_s + --n) = *(cpy + len_cpy--);
-	while (n >= 0)
-		*(s + len_s + n--) = c;
-	return (s);
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/17 17:41:41 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/17 17:57:05 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ void			ls_display_col(t_ls_info *file, char dot_files, t_list *files,
 		t_ls_list *start);
 void			ls_create_ln(t_ls_info *file, t_ls_ext *info, t_ls_ln *new,
 		time_t *actual);
+void			ls_display_ext(t_ls_info *file, char dot_files, t_list *files,
+		t_ls_list *start);
 
 #endif

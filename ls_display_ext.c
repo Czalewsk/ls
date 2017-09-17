@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/16 10:52:34 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/17 17:44:28 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/17 17:51:58 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void		ls_get_time(t_ls_ln *line, time_t *time, time_t *actual)
 		ft_strncat(time_area, time_char + 15, 5) :
 		ft_strncat(time_area, time_char + 7, 5);
 	*(time_area + 12) = ' ';
-//	write(1, time_area, 13);
 }
 
 void		ls_create_ln(t_ls_info *file, t_ls_ext *info, t_ls_ln *new,
@@ -103,6 +102,4 @@ void		ls_create_ln(t_ls_info *file, t_ls_ext *info, t_ls_ln *new,
 	ls_get_owner_and_group(info, new,
 			getpwuid(stat->st_uid), getgrgid(stat->st_gid));
 	ls_get_time(new, &stat->st_mtime, actual);
-	//ft_printf("  %lu %s  %s  %lu  %s\n", new->link, new->owner, new->group,
-	//		new->size, file->name);
 }
