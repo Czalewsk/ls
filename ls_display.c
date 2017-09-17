@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 11:04:14 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/16 22:38:17 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/17 19:24:00 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			ls_check_perm_x(t_ls_info *file, char dot_files)
 			ft_printf("ls: %s: Permission denied\n", file->name);
 			return (0);
 		}
-		if ((file->stat.st_mode & 0000100) || !file->is_folder)
+		if (file->stat.st_mode || !file->is_folder)
 			return (1);
 	}
 	return (-1);
