@@ -6,7 +6,7 @@
 /*   By: czalewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 16:36:55 by czalewsk          #+#    #+#             */
-/*   Updated: 2016/11/14 19:46:51 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/18 17:49:16 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_list			**ft_strsplit_lst(char const *s, char c)
 	i = 0;
 	if (!s || !c)
 		return (NULL);
-	if (!(start = (t_list**)malloc(sizeof(t_list**))))
+	if (!(start = (t_list**)ft_memalloc(sizeof(t_list**))))
 		return (NULL);
 	*start = NULL;
 	while (s[i])

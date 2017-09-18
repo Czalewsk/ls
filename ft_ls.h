@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/18 16:33:20 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/18 21:00:57 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <uuid/uuid.h>
 # include <sys/xattr.h>
 # include <time.h>
+
 
 typedef struct	s_ls_list
 {
@@ -113,5 +114,7 @@ void			ls_create_ln(t_ls_info *file, t_ls_ext *info, t_ls_ln *new,
 		time_t *actual);
 void			ls_display_ext(t_ls_info *file, char dot_files, t_list *files,
 		t_ls_list *start);
+void			ls_format_line_m(char *line, t_ls_ext *info, t_ls_info *file);
+void			ls_format_line_n(char *line, t_ls_ext *info, t_ls_info *file);
 
 #endif

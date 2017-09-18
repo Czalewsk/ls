@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/16 10:52:34 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/18 16:37:13 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/18 20:15:09 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			ls_fill_mode(t_ls_info *file, unsigned long mode, t_ls_ext *info,
 	i = -1;
 	file_mode = file->line->perms;
 	*file_mode = ' ';
-	while (++i < 7 && *file_mode == ' ')
+	while (*file_mode == ' ' && ++i < 7)
 		if (entry_char[i].type == (int)(mode & S_IFMT))
 			*file_mode = entry_char[i].match;
 	info->maj_min += entry_char[i].maj_min;

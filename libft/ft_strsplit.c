@@ -6,7 +6,7 @@
 /*   By: czalewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 14:45:34 by czalewsk          #+#    #+#             */
-/*   Updated: 2016/11/13 14:12:31 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/18 17:49:05 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char			**ft_strsplit(char const *s, char c)
 	n = 0;
 	if (!s || !c)
 		return (NULL);
-	if (!(split = (char**)malloc(ft_count_world(s, c) * (sizeof(char**)))))
+	if (!(split = (char**)ft_memalloc(ft_count_world(s, c) * (sizeof(char**)))))
 		return (NULL);
 	while (s[i])
 	{
