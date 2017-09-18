@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/16 10:52:34 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/18 15:28:37 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/18 16:37:13 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void		ls_fill_perm(unsigned long mode, char *file_mode)
 	*(file_mode + 2) = mode & 1 ? 'x' : '-';
 }
 
-int			ls_fill_mode(t_ls_info *file, unsigned long mode)
+int			ls_fill_mode(t_ls_info *file, unsigned long mode, t_ls_ext *info,
+		char *file_mode)
 {
 	int					i;
-	char				*file_mode;
-	const t_ls_entry	entry_char[7] = { {S_IFIFO, 'p'}, {S_IFLNK, 'l'},
-		{S_IFDIR, 'd'}, {S_IFBLK, 'b'}, {S_IFREG, '-'}, {S_IFCHR, 'c'},
-		{S_IFSOCK, 's'}, };
+	const t_ls_entry	entry_char[7] = { {S_IFIFO, 'p', 0}, {S_IFLNK, 'l', 0},
+		{S_IFDIR, 'd', 0}, {S_IFBLK, 'b', 1}, {S_IFREG, '-', 0},
+		{S_IFCHR, 'c', 1}, {S_IFSOCK, 's', 0}, };
 
 	i = -1;
 	file_mode = file->line->perms;
@@ -33,6 +33,7 @@ int			ls_fill_mode(t_ls_info *file, unsigned long mode)
 	while (++i < 7 && *file_mode == ' ')
 		if (entry_char[i].type == (int)(mode & S_IFMT))
 			*file_mode = entry_char[i].match;
+	info->maj_min += entry_char[i].maj_min;
 	i = -1;
 	while (++i < 3)
 		ls_fill_perm(mode >> (6 - 3 * i), file_mode + 1 + (i * 3));
@@ -88,7 +89,7 @@ void		ls_create_ln(t_ls_info *file, t_ls_ext *info, t_ls_ln *new,
 	file->line = new;
 	i = ft_strlen(file->name);
 	info->name = info->name > i ? info->name : i;
-	ls_fill_mode(file, stat->st_mode) && !(i = 0);
+	ls_fill_mode(file, stat->st_mode, info, NULL) && !(i = 0);
 	new->size = stat->st_size;
 	(i = file->stat.st_blocks) ? info->total += i : 0;
 	i = stat->st_nlink;
