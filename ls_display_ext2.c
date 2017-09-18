@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/17 17:55:44 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/17 19:36:00 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/18 15:14:40 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void			ls_print_line(char *line, t_ls_ext *info, t_ls_info *file)
 	ft_cpy_until(line, ln->group, ' ', info->group + 1);
 	tmp = ft_itoa(ln->size);
 	ft_cpy_until_r(line, tmp, ' ', info->size + 1);
+	free(tmp);
 	ft_strcat(line, " ");
 	ft_strncat(line, ln->time, 14);
 	ft_strcat(line, file->name);
@@ -73,5 +74,6 @@ void				ls_display_ext(t_ls_info *file, char dot_files,
 		file->is_display ? 0 : ls_print_line(line, &info, file);
 		files = files->next;
 	}
+	ft_strdel(&line);
 	ft_lstdel(&start->files, &ls_del_files);
 }
