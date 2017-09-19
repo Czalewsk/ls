@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:58:24 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/05 18:21:19 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/19 10:27:08 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,33 @@ static void	ls_add_to_list(t_ls_list *start, t_ls_info *new,
 	}
 }
 
+void		ls_no_path(t_ls_info *new, t_ls_list *start)
+{
+	new->dir = opendir(".");
+	new->name = ft_strdup(".");
+	new->path = ft_strdup(".");
+	lstat(new->name, &new->stat);
+	ft_lstadd(&start->folders, ft_lstnew(new, sizeof(t_ls_info)));
+}
+
 void		ls_init_list(t_ls_list *start, int ac, char **av,
 		char (*option)[128])
 {
 	t_ls_info		new;
 	int				i;
+	int				l;
 
 	ft_bzero(&new, sizeof(t_ls_info));
 	i = get_param(0, NULL, NULL);
 	if (i == ac)
-	{
-		new.dir = opendir(".");
-		new.name = ft_strdup(".");
-		new.path = ft_strdup(".");
-		lstat(new.name, &new.stat);
-		ft_lstadd(&start->folders, ft_lstnew(&new, sizeof(t_ls_info)));
-	}
+		ls_no_path(&new, start);
 	while (i < ac)
 	{
 		ft_bzero(&new, sizeof(t_ls_info));
 		new.name = ft_strdup(av[i]);
+		l = ft_strlen(av[i]);
+		if (l >= 1 && (av[i][l - 1] == '/'))
+			av[i][l - 1] = '\0';
 		new.path = ft_strdup(av[i]);
 		if ((new.err = lstat(new.path, &new.stat) ? errno : 0))
 			ft_lstinsert_if_end(&start->error,

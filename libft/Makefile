@@ -6,12 +6,12 @@
 #    By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 13:16:18 by czalewsk          #+#    #+#              #
-#    Updated: 2017/09/19 09:22:02 by czalewsk         ###   ########.fr        #
+#    Updated: 2017/09/19 10:04:49 by czalewsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 NAME = libft.a
 DEPS = Makefile get_next_line.h libft.h array.h
 OBJ = ft_strlen.o			\

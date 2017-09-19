@@ -6,12 +6,12 @@
 #    By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/19 08:42:40 by czalewsk          #+#    #+#              #
-#    Updated: 2017/09/19 09:25:07 by czalewsk         ###   ########.fr        #
+#    Updated: 2017/09/19 10:04:36 by czalewsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ./ft_ls
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 OBJS = $(SRCS:.c=.o)
 SRCS = ft_ls.c ls_display.c ls_display_col.c ls_display_error.c \
 	   ls_display_ext.c ls_display_ext2.c ls_display_folders.c \

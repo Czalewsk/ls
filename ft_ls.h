@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/18 21:00:57 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/19 10:28:51 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <uuid/uuid.h>
 # include <sys/xattr.h>
 # include <time.h>
-
 
 typedef struct	s_ls_list
 {

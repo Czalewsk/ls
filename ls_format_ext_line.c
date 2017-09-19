@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 18:20:17 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/19 08:36:39 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/19 10:28:31 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static inline int	ls_add_min_maj(char *line, t_ls_info *file)
 
 	type = *line;
 	if (!(type == 'c' || type == 'b'))
-		return((int)ft_strcat(line, "       "));
+		return ((int)ft_strcat(line, "       "));
 	else
 	{
 		tmp = ft_itoa(major(file->stat.st_rdev));
@@ -64,7 +64,7 @@ void				ls_format_line_n(char *line, t_ls_ext *info,
 	ft_strcat(line, " ");
 	ft_strncat(line, ln->time, 14);
 	ft_strcat(line, file->name);
-	*line != 'l'? ft_putendl(line) : ls_print_link(file, line);
+	*line != 'l' ? ft_putendl(line) : ls_print_link(file, line);
 }
 
 void				ls_format_line_m(char *line, t_ls_ext *info,
@@ -82,7 +82,7 @@ void				ls_format_line_m(char *line, t_ls_ext *info,
 	free(tmp);
 	ft_cpy_until(line, ln->owner, ' ', info->user + 2);
 	ft_cpy_until(line, ln->group, ' ', info->group + 1);
-	if(ls_add_min_maj(line, file))
+	if (ls_add_min_maj(line, file))
 	{
 		(tmp = ft_itoa(ln->size));
 		ft_cpy_until_r(line, tmp, ' ', info->size + 1);
@@ -91,5 +91,5 @@ void				ls_format_line_m(char *line, t_ls_ext *info,
 	ft_strcat(line, " ");
 	ft_strncat(line, ln->time, 14);
 	ft_strcat(line, file->name);
-	*line != 'l'? ft_putendl(line) : ls_print_link(file, line);
+	*line != 'l' ? ft_putendl(line) : ls_print_link(file, line);
 }
