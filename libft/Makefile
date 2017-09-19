@@ -6,13 +6,14 @@
 #    By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 13:16:18 by czalewsk          #+#    #+#              #
-#    Updated: 2017/09/17 07:27:30 by czalewsk         ###   ########.fr        #
+#    Updated: 2017/09/19 09:22:02 by czalewsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
+DEPS = Makefile get_next_line.h libft.h array.h
 OBJ = ft_strlen.o			\
 	  ft_strisnumber.o		\
 	  ft_strdup.o			\
@@ -147,8 +148,8 @@ all : $(NAME)
 $(NAME) : $(OBJ) 
 	ar rc $(NAME) $(OBJ) && ranlib $(NAME)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $^
+%.o: %.c $(DEPS)
+	$(CC) $(CFLAGS) -c $<
 
 clean :
 	rm -f $(OBJ)
