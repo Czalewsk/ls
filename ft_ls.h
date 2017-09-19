@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/19 10:28:51 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/19 10:42:04 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct	s_ls_info
 	char			is_folder;
 	int				deep;
 	int				is_display;
+	int				slash;
 	t_ls_ln			*line;
 }				t_ls_info;
 

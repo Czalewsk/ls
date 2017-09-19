@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/24 10:23:23 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/15 13:19:37 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/19 10:43:20 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ static int			ls_init_files(t_ls_list *start, t_ls_info *folder,
 		ft_bzero(&new, sizeof(t_ls_info));
 		new.deep = i;
 		new.name = ft_strdup(data->d_name);
-		new.path = ft_strjoin(folder->path, "/");
+		new.path = folder->slash ?
+			ft_strdup(folder->path) : ft_strjoin(folder->path, "/");
 		new.path = ft_strjoin_free(new.path, 1, new.name, 0);
 		lstat(new.path, &new.stat);
 		ls_add_to_list(start, &new, option);
