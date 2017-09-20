@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/17 17:55:44 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/19 15:28:46 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/20 09:32:46 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void				ls_display_ext(t_ls_info *file, char dot_files,
 	files = start->files;
 	files && !((t_ls_info*)files->content)->is_display ?
 		ft_printf("total %li\n", info.total) : 0;
-	line = ft_memalloc(32 + info.link + info.user + info.group + info.size
+	line = ft_memalloc(50 + info.link + info.user + info.group + info.size
 			+ info.name);
-	ft_memset(line, ' ', 31 + info.link + info.user + info.group + info.size
+	ft_memset(line, ' ', 49 + info.link + info.user + info.group + info.size
 			+ info.name);
 	while (files)
 	{

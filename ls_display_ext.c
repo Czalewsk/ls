@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/16 10:52:34 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/18 20:15:09 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/20 08:26:22 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,20 @@ int			ls_fill_mode(t_ls_info *file, unsigned long mode, t_ls_ext *info,
 }
 
 void		ls_get_owner_and_group(t_ls_ext *info, t_ls_ln *line,
-		struct passwd *pswd, struct group *grp)
+		struct stat *stat)
 {
-	int		i;
-	char	*tmp;
+	int				i;
+	char			*tmp;
+	struct passwd	*pswd;
+	struct group	*grp;
 
-	tmp = grp ? grp->gr_name : NULL;
+	pswd = getpwuid(stat->st_uid);
+	grp = getgrgid(stat->st_gid);
+	tmp = grp ? ft_strdup(grp->gr_name) : ft_itoa(stat->st_uid);
 	line->group = tmp;
 	i = ft_strlen(tmp);
 	info->group = info->group > i ? info->group : i;
-	tmp = pswd ? pswd->pw_name : NULL;
+	tmp = pswd ? ft_strdup(pswd->pw_name) : ft_itoa(stat->st_gid);
 	line->owner = tmp;
 	i = ft_strlen(tmp);
 	info->user = info->user > i ? info->user : i;
@@ -100,7 +104,6 @@ void		ls_create_ln(t_ls_info *file, t_ls_ext *info, t_ls_ln *new,
 	new->size = i;
 	i = ft_ulintlen(i);
 	info->size = info->size > i ? info->size : i;
-	ls_get_owner_and_group(info, new,
-			getpwuid(stat->st_uid), getgrgid(stat->st_gid));
+	ls_get_owner_and_group(info, new, stat);
 	ls_get_time(new, &stat->st_mtime, actual);
 }

@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:58:24 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/19 10:42:13 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/20 10:47:45 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ls_add_to_list(t_ls_list *start, t_ls_info *new,
 
 	if (!f)
 		f = ls_set_sort(option);
-	if (new->stat.st_mode & 0040000)
+	if ((new->stat.st_mode & S_IFMT) == S_IFDIR)
 	{
 		new->err |= (new->dir = opendir(new->name)) ? 0 : 1;
 		ft_lstinsert_if_end(&start->folders,
@@ -38,7 +38,7 @@ void		ls_no_path(t_ls_info *new, t_ls_list *start)
 	new->dir = opendir(".");
 	new->name = ft_strdup(".");
 	new->path = ft_strdup(".");
-	lstat(new->name, &new->stat);
+	stat(new->name, &new->stat);
 	ft_lstadd(&start->folders, ft_lstnew(new, sizeof(t_ls_info)));
 }
 
@@ -61,7 +61,7 @@ void		ls_init_list(t_ls_list *start, int ac, char **av,
 		if (l >= 1 && (av[i][l - 1] == '/'))
 			new.slash = 1;
 		new.path = ft_strdup(av[i]);
-		if ((new.err = lstat(new.path, &new.stat) ? errno : 0))
+		if ((new.err = stat(new.path, &new.stat) ? errno : 0))
 			ft_lstinsert_if_end(&start->error,
 					ft_lstnew(&new, sizeof(t_ls_info)), &ls_sort_name);
 		else

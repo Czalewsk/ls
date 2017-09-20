@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/24 10:23:23 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/19 10:43:20 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/20 10:48:28 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ inline static void	ls_add_to_list(t_ls_list *start, t_ls_info *new,
 	}
 	if (!ls_check_dot_files(new, dot_files))
 		return ;
-	if (recursive && (new->stat.st_mode & 0040000) &&
+	if (recursive && ((new->stat.st_mode & S_IFMT) == S_IFDIR) &&
 		(*new->name != '.' || dot_files) && ls_is_not_root(new->name))
 	{
 		new->is_folder = 1;
@@ -85,7 +85,7 @@ static int			ls_init_files(t_ls_list *start, t_ls_info *folder,
 		new.path = folder->slash ?
 			ft_strdup(folder->path) : ft_strjoin(folder->path, "/");
 		new.path = ft_strjoin_free(new.path, 1, new.name, 0);
-		lstat(new.path, &new.stat);
+		stat(new.path, &new.stat);
 		ls_add_to_list(start, &new, option);
 	}
 	return (1);
@@ -108,7 +108,7 @@ void				ls_display_folders(char (*option)[128], t_ls_list *start)
 		ls_init_files(start, folder, option);
 		if (!folder->err)
 			ls_display_files(start, option, folder);
-		if ((folder->err || !(folder->stat.st_mode & 0000100))
+		if ((folder->err || !(folder->stat.st_mode & S_IXUSR))
 				&& (start->print = 1))
 			ft_printf("ls: %s: Permission denied\n", folder->name);
 		ft_lst_remove(&start->folders, folders, &ls_del_folders);

@@ -6,13 +6,13 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 20:08:53 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/19 15:24:04 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/20 10:49:00 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		ls_del_folders(void *content, size_t size)
+inline void		ls_del_folders(void *content, size_t size)
 {
 	t_ls_info	*tmp;
 
@@ -28,7 +28,7 @@ void		ls_del_folders(void *content, size_t size)
 	ft_memdel(&content);
 }
 
-void		ls_del_files(void *content, size_t size)
+inline void		ls_del_files(void *content, size_t size)
 {
 	t_ls_info	*tmp;
 
