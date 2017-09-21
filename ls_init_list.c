@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:58:24 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/20 10:47:45 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/21 17:20:37 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void		ls_init_list(t_ls_list *start, int ac, char **av,
 		if (l >= 1 && (av[i][l - 1] == '/'))
 			new.slash = 1;
 		new.path = ft_strdup(av[i]);
-		if ((new.err = stat(new.path, &new.stat) ? errno : 0))
+		if ((new.err = lstat(new.path, &new.stat) ? errno : 0))
 			ft_lstinsert_if_end(&start->error,
 					ft_lstnew(&new, sizeof(t_ls_info)), &ls_sort_name);
 		else

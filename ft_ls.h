@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/19 12:41:54 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/21 17:13:48 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,13 @@ void			ls_display_ext(t_ls_info *file, char dot_files, t_list *files,
 		t_ls_list *start);
 void			ls_format_line_m(char *line, t_ls_ext *info, t_ls_info *file);
 void			ls_format_line_n(char *line, t_ls_ext *info, t_ls_info *file);
+int				ls_not_sorted(t_list *prev, t_list *new);
+int				ls_not_sorted_r(t_list *prev, t_list *new);
+int				ls_sort_size_r(t_list *prev, t_list *cur);
+int				ls_sort_size(t_list *prev, t_list *cur);
+int				ls_sort_time_acc(t_list *prev, t_list *cur);
+int				ls_sort_time_acc_r(t_list *prev, t_list *cur);
+int				ls_sort_time_crea_r(t_list *prev, t_list *cur);
+int				ls_sort_time_crea(t_list *prev, t_list *cur);
 
 #endif
