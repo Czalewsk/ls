@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:58:24 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/21 17:20:37 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/21 18:46:34 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,13 @@ void		ls_init_list(t_ls_list *start, int ac, char **av,
 	t_ls_info		new;
 	int				i;
 	int				l;
+	int				ret;
 
 	ft_bzero(&new, sizeof(t_ls_info));
-	i = get_param(0, NULL, NULL);
+	i = get_param(0, NULL, NULL) - 1;
 	if (i == ac)
 		ls_no_path(&new, start);
-	while (i < ac)
+	while (++i < ac)
 	{
 		ft_bzero(&new, sizeof(t_ls_info));
 		new.name = ft_strdup(av[i]);
@@ -61,11 +62,12 @@ void		ls_init_list(t_ls_list *start, int ac, char **av,
 		if (l >= 1 && (av[i][l - 1] == '/'))
 			new.slash = 1;
 		new.path = ft_strdup(av[i]);
-		if ((new.err = lstat(new.path, &new.stat) ? errno : 0))
+		ret = (*option)['l'] ?
+			lstat(new.path, &new.stat) : stat(new.path, &new.stat);
+		if ((new.err = ret ? errno : 0))
 			ft_lstinsert_if_end(&start->error,
 					ft_lstnew(&new, sizeof(t_ls_info)), &ls_sort_name);
 		else
 			ls_add_to_list(start, &new, option);
-		i++;
 	}
 }
