@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 16:05:32 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/21 17:44:26 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/21 19:44:54 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,8 @@ int				ls_sort_time_acc_r(t_list *prev, t_list *cur);
 int				ls_sort_time_crea_r(t_list *prev, t_list *cur);
 int				ls_sort_time_crea(t_list *prev, t_list *cur);
 int				ls_sort_time_mod_r(t_list *prev, t_list *cur);
+int				ls_sort_time_mod(t_list *prev, t_list *cur);
+int				ls_sort_time_mod(t_list *prev, t_list *cur);
+int				ls_sort_name_r(t_list *prev, t_list *new);
 
 #endif

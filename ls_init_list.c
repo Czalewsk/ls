@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:58:24 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/21 18:46:34 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/21 19:10:02 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		ls_init_list(t_ls_list *start, int ac, char **av,
 
 	ft_bzero(&new, sizeof(t_ls_info));
 	i = get_param(0, NULL, NULL) - 1;
-	if (i == ac)
+	if (i == ac - 1)
 		ls_no_path(&new, start);
 	while (++i < ac)
 	{
