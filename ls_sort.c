@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 14:20:18 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/23 14:00:47 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/23 14:32:27 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int			ls_sort_time_mod(t_list *prev, t_list *new)
 	unsigned long	a;
 	unsigned long	b;
 
-	a = ((t_ls_info*)(prev->content))->stat.st_ctime;
-	b = ((t_ls_info*)(new->content))->stat.st_ctime;
+	a = ((t_ls_info*)(prev->content))->stat.st_mtime;
+	b = ((t_ls_info*)(new->content))->stat.st_mtime;
 	if (a < b)
 		return (0);
 	else if (a > b)
