@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 14:20:18 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/21 20:55:25 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/23 14:00:47 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void		*ls_choose_sort(char (*option)[128])
 		while (++i < l)
 			if ((*option)[(int)sort[i]])
 				break ;
-		ft_printf("TRI = %i\n", i);
 		f = adress[i][(int)(*option)['r']];
 	}
 	return (f);
@@ -49,7 +48,7 @@ int			ls_sort_time_mod(t_list *prev, t_list *new)
 		return (1);
 	else
 		return (ft_strcmp(((t_ls_info*)prev->content)->name,
-				((t_ls_info*)new->content)->name) < 0 ? 0 : 1);
+				((t_ls_info*)new->content)->name) > 0 ? 0 : 1);
 }
 
 int			ls_sort_name_r(t_list *prev, t_list *new)

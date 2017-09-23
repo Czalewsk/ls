@@ -6,7 +6,7 @@
 /*   By: czalewsk <czalewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 18:20:17 by czalewsk          #+#    #+#             */
-/*   Updated: 2017/09/19 10:28:31 by czalewsk         ###   ########.fr       */
+/*   Updated: 2017/09/23 14:15:41 by czalewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ static inline void	ls_print_link(t_ls_info *file, char *line)
 	char		link[256];
 	int			ret;
 
-	ret = readlink(file->path, link, 256);
-	link[ret != -1 ? ret : 0] = '\0';
+	if ((ret = readlink(file->path, link, 256)) == -1)
+	{
+		ft_putendl(line);
+		return ;
+	}
+	link[ret] = '\0';
 	ft_printf("%s -> %s\n", line, link);
 }
 
